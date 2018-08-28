@@ -14,3 +14,9 @@
 Route::get('/', function () {
     return view('user.login');
 });
+
+Route::post('login','UserController@login');
+
+Route::get('dependencias/{uuid?}','TribunalController@dependencia');
+
+Route::get('autoridades/{uuid?}','TribunalController@autoridad');

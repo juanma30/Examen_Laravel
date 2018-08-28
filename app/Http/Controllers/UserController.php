@@ -21,9 +21,9 @@ class UserController extends Controller
 
     $auth = DB::table('user')->where('name',$user)->where('passwd',$pass)->first();
     if ($auth) {
-      return redirect('inicio');
+      return redirect('dependencias');
     }else{
-      //Contraseña o usuario incorrectos
+      return redirect('');
     }
   }
 

@@ -37,7 +37,7 @@
 			</div>
 			<div class="modal-footer">
 				<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Cerrar</a>
-				<a href="javascript:;" class="btn btn-sm btn-warning del_yes">Si</a>
+				<a href="javascript:;" class="btn btn-sm btn-warning" id="del_yes">Si</a>
 			</div>
 		</div>
 	</div>
@@ -118,13 +118,15 @@ var id = "",
     data = <?php echo $data ? $data : []; ?>;
 
   function peticion(filt,data){
+    filt = parseInt(filt);
     $.ajax( {
       type: "POST",
       url: "http://localhost:81/Api/<?php echo $met; ?>/"+filt,
       data: data,
       success: function( response ) {
-        console.log( response );
-        if (response.success) {
+        rs = JSON.parse(response);
+        if (rs.success) {
+          filt==2 && alert("Se realizaron los cambios");
           window.location.reload();
         }
       }
@@ -134,8 +136,8 @@ var id = "",
   $(".delete").on("click",function(e){
     id = this.id;
   });
-  $("#del_yes").on("click",function(e){
-    peticion(0,"supr=1&sel_depend="+id);
+  $(document).on("click","#del_yes",function(e){
+    peticion(2,"supr=1&sel_depend="+id);
   })
 
   $(".edit").on("click",function(e){
@@ -149,7 +151,6 @@ var id = "",
 
   $("#add_reg").on("click",function(e){
     var form = $("#new_reg").serialize();
-    console.log(form);
     peticion(1,form);
   });
 
